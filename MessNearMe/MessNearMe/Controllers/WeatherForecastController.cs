@@ -1,3 +1,4 @@
+using MessNearMe.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MessNearMe.Controllers
@@ -12,10 +13,12 @@ namespace MessNearMe.Controllers
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ICountryService _countryService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, ICountryService countryService)
         {
             _logger = logger;
+            _countryService = countryService;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -28,6 +31,12 @@ namespace MessNearMe.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet("Country")]
+        public async Task<List<Country>> GetCountry()
+        {
+            return await this._countryService.GetCountryAsync();
         }
     }
 }
