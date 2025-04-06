@@ -14,4 +14,6 @@ public class Country : BaseModel
 
     [Column("country_currency")]
     public string CountryCurrency { get; set; }
+    [Column("created_at")]
+    public DateTime CreatedAt { get; set; }
 }
